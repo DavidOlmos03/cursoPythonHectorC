@@ -9,5 +9,5 @@ if len(sys.argv) == 3:
 
 else:
     print("ERROR - introduce los argumentos correctamente")
-    # Para escapar texto se utiliza la estructura \"texto_a_escapar\", asi ase pueden mostrar las comillas dobles en la respuesta
+    # Para escapar texto se utiliza la estructura \"texto_a_escapar\", asi ase pueden mostrar las comillas dobles en la respuesta 
     print("Ejemplo: escribir_lineas.py \"Texto\" 5")

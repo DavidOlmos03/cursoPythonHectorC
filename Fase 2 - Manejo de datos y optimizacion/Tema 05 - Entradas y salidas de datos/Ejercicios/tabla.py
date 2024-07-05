@@ -19,7 +19,7 @@ try:
             for i in range(filas):
                 for j in range(columnas):
                     print(" * ", end='')
-                print("\n")
+                print("")
                 # break
     
             
