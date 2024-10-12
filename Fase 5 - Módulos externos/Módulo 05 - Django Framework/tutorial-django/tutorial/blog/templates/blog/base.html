@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Este valor de static esta definido en settings.py como STATIC_URL -->
+    <link rel="stylesheet" href="{% static 'blog/styles.css' %}">
+
+    <title>{% block title %}{% endblock %}  </title>
+</head>
+<body>
+    <main>
+        <img src="{% static 'blog/hektor.png'%}" alt="" class="top">
+        <h1>
+            Bienvenido a mi blog
+        </h1>
+        <h3>
+            Archivo personal de mis entradas
+        </h3>
+        {% block content %}{% endblock %}        
+    </main>
+</body>
+</html>

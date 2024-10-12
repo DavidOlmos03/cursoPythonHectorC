@@ -1,0 +1,11 @@
+{% extends "blog/base.html" %}
+{% block title %}{{ post }} . Blog{% endblock %}
+{% block content %}
+    <!--plantillas jinja-->
+    <ul>
+        <h3><b>{{ post }}</b></h3>
+        <span class="date">{{ post.created }}</span>
+        <p>{{ post.content }}</p>
+    </ul>
+    <a href="{% url 'home' %}">Volver a la portada</a>
+{% endblock %}
