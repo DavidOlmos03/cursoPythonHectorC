@@ -56,6 +56,14 @@ async def clientes_actualizar(datos: ModeloCliente):
         cliente = db.Clientes.modificar(datos.dni, datos.nombre, datos.apellido)
         if cliente:
             return JSONResponse(content=cliente.to_dict())
-    raise HTTPException(status_code=404, detail="Cliente no creado")
-    
+    raise HTTPException(status_code=404, detail = "Cliente no creado")
+
+@app.delete('/cliente/borrar/{dni}/')
+async def cliente_borrar(dni: str):
+    if db.Clientes.buscar(dni):
+        cliente = db.Clientes.borrar(dni=dni)
+        if cliente:
+            return JSONResponse(content = cliente.to_dict())
+    raise HTTPException(status_code=404, detail="Cliente no encontrado")
+
 print("Servidor de la API...")
