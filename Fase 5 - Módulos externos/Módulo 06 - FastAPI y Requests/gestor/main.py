@@ -6,7 +6,10 @@ import database as db
 
 # Este header no es necesario en los JSONResponse para controlar los caracteres especiales
 # headers = {"content-type":"charset=utf-8"} 
-app = FastAPI()
+app = FastAPI(
+    title="API del Gestor de clientes",
+    description="Ofrece diferentes funciones para gestionar los clientes"
+)
 
 @app.get("/")
 async def index():
@@ -14,7 +17,7 @@ async def index():
     return JSONResponse(content=content, media_type="application/json")
 
 
-@app.get("/html/")
+@app.get("/html/", tags=["Clientes"])
 async def html():
     content = """
     <!DOCTYPE html>
@@ -30,27 +33,27 @@ async def html():
     """
     return Response(content=content, media_type="text/html")
     
-@app.get('/clientes/')
+@app.get('/clientes/', tags=["Clientes"])
 async def clientes():
     # Se debe parsear antes de enviar al JSONResponse
     content = [cliente.to_dict() for cliente in db.Clientes.lista]
     return JSONResponse(content=content)
 
-@app.get('/clientes/buscar/{dni}')
+@app.get('/clientes/buscar/{dni}', tags=["Clientes"])
 async def clientes_buscar(dni: str):
     cliente = db.Clientes.buscar(dni=dni)
     if not cliente:
         raise HTTPException(status_code=404, detail="Cliente no encontrado")
     return JSONResponse(content=cliente.to_dict())
 
-@app.post('/clientes/crear/')
+@app.post('/clientes/crear/', tags=["Clientes"])
 async def clientes_crear(datos: ModeloCrearCliente):
     cliente = db.Clientes.crear(datos.dni, datos.nombre, datos.apellido)
     if cliente:
         return JSONResponse(content=cliente.to_dict())
     raise HTTPException(status_code=404, detail="Cliente no creado")
 
-@app.put('/clientes/actualizar')
+@app.put('/clientes/actualizar', tags=["Clientes"])
 async def clientes_actualizar(datos: ModeloCliente):
     if db.Clientes.buscar(datos.dni):
         cliente = db.Clientes.modificar(datos.dni, datos.nombre, datos.apellido)
@@ -58,7 +61,7 @@ async def clientes_actualizar(datos: ModeloCliente):
             return JSONResponse(content=cliente.to_dict())
     raise HTTPException(status_code=404, detail = "Cliente no creado")
 
-@app.delete('/cliente/borrar/{dni}/')
+@app.delete('/cliente/borrar/{dni}/', tags=["Clientes"])
 async def cliente_borrar(dni: str):
     if db.Clientes.buscar(dni):
         cliente = db.Clientes.borrar(dni=dni)
